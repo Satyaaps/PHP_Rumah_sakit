@@ -110,8 +110,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<div class="btn-group">
-    <a href="dashboard.php?idu=<?php echo $data['_id'];?>" class="btn btn-sm btn-warning">Login</a>
-    <a href="admindashboard.php?idu=<?php echo $data['_id'];?>" class="btn btn-sm btn-danger">Hapus</a>
-</div>
 
