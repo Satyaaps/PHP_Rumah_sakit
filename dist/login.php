@@ -1,58 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webleb</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="/css/styles.css">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f1f1f1;
+    }
+    
+    .login-container {
+      width: 400px; 
+      padding: 40px; 
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      width: 100%;
+      padding: 12px; 
+      margin-bottom: 20px; 
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+      margin-left: -10px;
+    }
+    
+    .login-container .btn-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .login-container input[type="submit"],
+    .login-container input[type="button"] {
+      width: 48%;
+      padding: 12px; 
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 16px; 
+    }
+  </style>
 </head>
 <body>
-  <div class="form">
-    <ul class="tab-group">
-      <li class="tab active"><a href="#signup" style="border-radius: 15px!important;margin-right:8x;">Sign Up</a></li>
-      <li class="tab"><a href="#login" style="border-radius: 15px!important;margin-left:8px;">Log In</a></li>
-    </ul>
-    <div class="tab-content">
-      <div id="signup">
-        <h1>Register</h1>
-        <form action="/" method="post">
-          <div class="top-row">
-            <div class="field-wrap">
-              <input type="text" required placeholder="First Name" />
-            </div>
-            <div class="field-wrap">
-              <input type="text" required placeholder="Last Name" />
-            </div>
-          </div>
-          <div class="field-wrap">
-            <input type="email" required placeholder="Email Address"/>
-          </div>
-          <div class="field-wrap">
-            <input type="password" required placeholder="Password" />
-          </div>
-          <button type="submit" class="button button-block" />Sign Up</button>
-        </form>
+  <div class="login-container">
+    <h2>HAI MEDIC</h2>
+    <form action="login.php" method="POST">
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <div class="btn-container">
+        <input type="submit" value="Login">
+        <input type="button" value="Register" onclick="location.href='register.php';">
       </div>
-      <div id="login">
-        <h1>Welcome Back!</h1>
-        <form action="/" method="post">
-          <div class="field-wrap">
-            <input type="email" required placeholder="Email" />
-          </div>
-          <div class="field-wrap">
-            <input type="password" required placeholder="Password" />
-          </div>
-          <p class="forgot"><a href="https://www.web-leb.com/code">Forgot Password?</a></p>
-          <button class="button button-block" />Login</button>
-        </form>
-      </div>
-    </div>
-  </div> 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/js/main.js"></script>
-</body>
-</html>
+    </form>
+  </div>
