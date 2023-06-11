@@ -29,8 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $collection->insertOne($data);
 
     if ($result->getInsertedCount() > 0) {
-        // Mengarahkan pengguna ke halaman showregister.php setelah berhasil menyimpan data
-        header("Location: showregister.php");
+        echo "Berhasil menyimpan data.";
+        // Mengarahkan pengguna ke halaman index.php setelah berhasil menyimpan data
+        header("Location: profile.php");
         exit();
     } else {
         echo "Gagal menyimpan data.";
