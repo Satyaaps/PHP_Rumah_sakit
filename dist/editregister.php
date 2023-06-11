@@ -117,6 +117,7 @@ if (isset($_POST['submit'])) {
                         <label for="penyakit_bawaan">Penyakit Bawaan</label>
                         <input type="text" class="form-control" id="penyakit_bawaan" name="penyakit_bawaan" value="<?php echo $data['penyakit_bawaan']; ?>">
                     </div>
+                    <br>
                     <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
                 </form>
             </div>
