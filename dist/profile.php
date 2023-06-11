@@ -71,7 +71,7 @@
                                         <input type="" name="judul_bk" class="form-control">
                                     </div>
                                     <label>Penyakit Bawaan</label>
-                                        <input type="" name="judul_bk" class="form-control" placeholder="Tidak Ada/ Ada, Hemofilia contoh>
+                                        <input type="" name="judul_bk" class="form-control" placeholder="Tidak Ada/ Ada, Hemofilia *contoh*">
                                     </div>
                                     <br>
                                     <button type="submit" class="btn btn-info btn-block">Submit</button>					
