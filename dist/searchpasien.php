@@ -49,38 +49,44 @@
         <br>
         <?php
         include 'dbconnect.php'; // Sertakan file dbconnect.php yang berisi koneksi ke MongoDB
-        $collection = $database->selectCollection("obat");
+        $collection = $database->selectCollection("user");
 
         // Tampilkan data default hanya jika tidak ada pencarian
         if (!isset($_GET['s'])) {
             $result = $collection->find();
         } else {
             $search = $_GET['s'];
-            $query = ['nama_obat' => ['$regex' => $search, '$options' => 'i']];
+            $query = ['nama_pasien' => ['$regex' => $search, '$options' => 'i']];
             $result = $collection->find($query);
         }
 
         echo '<table class="table table-bordered">
                 <tr>
                     <th>NO</th>
-                    <th>ID OBAT</th>
-                    <th>NAMA OBAT</th>
-                    <th>STOK</th>
-                    <th>HARGA JUAL</th>
-                    <th>HARGA BELI</th>
-                    <th>JENIS OBAT</th>
+                    <th>ID PASIEN</th>
+                    <th>USERNAME</th>
+                    <th>PASSWORD</th>
+                    <th>NAMA PASIEN</th>
+                    <th>NO TELP</th>
+                    <th>UMUR</th>
+                    <th>JENIS KELAMIN</th>
+                    <th>PENYAKIT BAWAAN</th>
+                    <th>STATUS</th>
                 </tr>';
-        $no = 1;
 
+        $no = 1;
         foreach ($result as $data) {
             echo '<tr>
                     <td>' . $no++ . '</td>
-                    <td>' . $data['ido'] . '</td>
-                    <td>' . $data['nama_obat'] . '</td>
-                    <td>' . $data['stok'] . '</td>
-                    <td>' . $data['harga_jual'] . '</td>
-                    <td>' . $data['harga_beli'] . '</td>
-                    <td>' . $data['jenis_obat'] . '</td>
+                    <td>' . $data['idu'] . '</td>
+                    <td>' . $data['username'] . '</td>
+                    <td>' . $data['password'] . '</td>
+                    <td>' . $data['nama_pasien'] . '</td>
+                    <td>' . $data['no_telp'] . '</td>
+                    <td>' . $data['umur'] . '</td>
+                    <td>' . $data['jenis_kelamin'] . '</td>
+                    <td>' . $data['penyakit_bawaan'] . '</td>
+                    <td>' . $data['status'] . '</td>
                   </tr>';
         }
 

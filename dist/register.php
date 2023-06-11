@@ -114,7 +114,7 @@ $collection = $database->selectCollection("user");
 $client = new MongoDB\Client("mongodb://localhost:27017");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id_user = $_POST['idu'];
+    $idu = $_POST['idu'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $nama_pasien = $_POST['nama_pasien'];
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Menyimpan data ke koleksi
     $data = [
-        'id_user' => $id_user,
+        'idu' => $idu,
         'username' => $username,
         'password' => $password,
         'nama_pasien' => $nama_pasien,

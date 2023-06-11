@@ -48,23 +48,25 @@
             <br>
             </form>
                 <div class="card-body">
-                    <a href="tambahdataobat.php" class="btn btn-primary">Tambah Data</a>
-                    <a href="searchobat.php" class="btn btn-primary">Cari Data</a>
+                    <a href="searchpasien.php" class="btn btn-primary">Cari Data</a>
                     <br>
                     <br>
                     <table class="table table-bordered">
                         <tr>
                             <th>NO</th>
-                            <th>ID OBAT</th>
-                            <th>NAMA OBAT</th>
-                            <th>STOK</th>
-                            <th>HARGA JUAL</th>
-                            <th>HARGA BELI</th>
-                            <th>JENIS OBAT</th>
+                            <th>ID PASIEN</th>
+                            <th>USERNAME</th>
+                            <th>PASSWORD</th>
+                            <th>NAMA PASIEN</th>
+                            <th>NO TELP</th>
+                            <th>UMUR</th>
+                            <th>JENIS KELAMIN</th>
+                            <th>PENYAKIT BAWAAN</th>
+                            <th>STATUS</th>
                         </tr>
                     <?php
                         include "dbconnect.php";
-                        $collection = $database->selectCollection("obat");
+                        $collection = $database->selectCollection("user");
                         $no = 1;
                         $NAMA = "";
                         if (isset($_GET['s']))
@@ -79,16 +81,19 @@
                         ?>
                         <tr>
                             <td><?php echo $no++;?> </td>
-                            <td><?php echo $data ['ido']?></td>
-                            <td><?php echo $data ['nama_obat']?></td>
-                            <td><?php echo $data ['stok']?></td>
-                            <td><?php echo $data ['harga_jual']?></td>
-                            <td><?php echo $data ['harga_beli']?></td>
-                            <td><?php echo $data ['jenis_obat']?></td>
+                            <td><?php echo $data ['idu']?></td>
+                            <td><?php echo $data ['username']?></td>
+                            <td><?php echo $data ['password']?></td>
+                            <td><?php echo $data ['nama_pasien']?></td>
+                            <td><?php echo $data ['no_telp']?></td>
+                            <td><?php echo $data ['umur']?></td>
+                            <td><?php echo $data ['jenis_kelamin']?></td>
+                            <td><?php echo $data ['penyakit_bawaan']?></td>
+                            <td><?php echo $data ['status']?></td>
                             <td>
                             <div class="btn-group">
-                                <a href="editdataobat.php?ido=<?php echo $data['_id'];?>" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="hapusdataobat.php?ido=<?php echo $data['_id'];?>" class="btn btn-sm btn-danger">Hapus</a>
+                                <a href="editdatapasien.php?idu=<?php echo $data['_id'];?>" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="hapusdatapasien.php?idu=<?php echo $data['_id'];?>" class="btn btn-sm btn-danger">Hapus</a>
                             </div>
 
                             </td>
