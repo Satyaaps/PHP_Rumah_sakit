@@ -1,8 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login</title>
-  <style>
+    <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>HaiMedic</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/medicikon.png" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -60,7 +68,7 @@
 </head>
 <body>
   <div class="login-container">
-    <h2>HAI MEDIC</h2>
+    <h2>HiMedic</h2>
     <form action="login.php" method="POST">
       <input type="text" name="username" placeholder="Username" required>
       <input type="password" name="password" placeholder="Password" required>

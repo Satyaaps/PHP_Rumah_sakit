@@ -17,11 +17,11 @@
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
                 <div class="list-group list-group-flush">
-                    <a href="index.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
-                    <a href="janjitemu.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Temu</a>
-                    <a href="janjimedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Medis</a>
-                    <a href="listobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>                    
-                    <a href="pembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Pembelian Obat</a>
+                <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
+                <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
+                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pasien</a>
+                <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
+                <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
 
                 </div>
             </div>
@@ -42,9 +42,6 @@
                     </div>
                 </nav>
                 <!-- Page content-->
-                <form method="GET" action="">
-    Cari Nama <input type="text" name="s">
-    <input type="submit" value="cari">
 </form>
 <?php
     include 'dbconnect.php'; // Sertakan file dbconnect.php yang berisi koneksi ke MongoDB
@@ -69,7 +66,6 @@
                     <th>HARGA BELI</th>
                     <th>JENIS OBAT</th>
                 </tr>';
-
         $no = 1;
 
         foreach ($result as $data) {

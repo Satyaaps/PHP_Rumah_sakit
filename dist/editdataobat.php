@@ -27,7 +27,6 @@ if (isset($_POST['submit'])) {
 }
 
 $tampil = $collection->find();
-
 ?>
 
 <!DOCTYPE html>
@@ -51,11 +50,11 @@ $tampil = $collection->find();
     <div class="border-end bg-white" id="sidebar-wrapper">
         <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
         <div class="list-group list-group-flush">
-            <a href="dashboardadmin.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
-            <a href="listdataobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
-            <a href="listdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pasien</a>
-            <a href="listdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
-            <a href="pembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
+                <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
+                <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
+                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pasien</a>
+                <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
+                <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
         </div>
     </div>
     <!-- Page content wrapper-->
@@ -112,8 +111,8 @@ $tampil = $collection->find();
                     </select>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-primary" name="submit">SIMPAN</button>
-                <button type="reset" class="btn btn-danger">BATAL</button>
+                <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+                <a href="adminlistobat.php" class="btn btn-primary">Kembali</a>
             </form>
         </div>
     </div>
