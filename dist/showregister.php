@@ -59,6 +59,7 @@
                             <th>Umur</th>
                             <th>Alamat</th>
                             <th>Penyakit Bawaan</th>
+                            <th>Aksi</th>
                         </tr>
                         <?php
                         include "dbconnect.php";
@@ -67,8 +68,7 @@
                         $NAMA = "";
                         if (isset($_GET['s'])) {
                             $NAMA = $_GET['s'];
-                            // $tampil = mysqli_query($koneksi, "SELECT * FROM tblmhs WHERE NAMA LIKE '%$NAMA'");
-                            // $tampil = mysqli_query($koneksi, "SELECT * FROM tblmhs WHERE NAMA LIKE '%$NAMA'");
+
                         } else {
                             $tampil = $collection->find();
                             foreach ($tampil as $data) {
@@ -83,8 +83,10 @@
                                     <td><?php echo isset($data['alamat']) ? $data['alamat'] : ''; ?></td>
                                     <td><?php echo isset($data['penyakit_bawaan']) ? $data['penyakit_bawaan'] : ''; ?></td>
                                     <td>
+                                    <div class="btn-group" role="group">
                                         <a href="editregister.php?ido=<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>" class="btn btn-sm btn-warning">Edit</a>
                                         <a href="hapusdataregister.php?ido=<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>" class="btn btn-sm btn-danger">Hapus</a>
+                                    </div>
                                     </td>
                                 </tr>
                                 <?php
