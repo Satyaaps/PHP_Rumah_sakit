@@ -14,6 +14,6 @@ if (isset($_GET['ido'])) {
         echo "Failed to delete data.";
     }
 } else {
-    echo "Invalid ID.";
+    echo "Invalid ID.";
 }
 ?>
