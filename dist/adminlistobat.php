@@ -21,10 +21,10 @@
                     <a href="admin.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
                     <a href="adminlistjanjitemu.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Temu</a>
                     <a href="adminlistjanjimedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Medis</a>
-                    <a href="listobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>                    
+                    <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>                    
                     <a href="pembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Pembelian Obat</a>
                 </div>
-            </div>
+            </div>  
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
@@ -49,6 +49,8 @@
             <form method="GET" action="">
                 Cari Nama <input type="text" name="s">
                 <input type="submit" value="cari">
+            <br>
+            <br>
             </form>
                 <div class="card-body">
                     <a href="index.php" class="btn btn-primary">Tambah Data</a>
@@ -88,8 +90,11 @@
                             <td><?php echo $data ['harga_beli']?></td>
                             <td><?php echo $data ['jenis_obat']?></td>
                             <td>
+                            <div class="btn-group">
                                 <a href="editdataobat.php?ido=<?php echo $data['_id'];?>" class="btn btn-sm btn-warning">Edit</a>
                                 <a href="hapusdataobat.php?ido=<?php echo $data['_id'];?>" class="btn btn-sm btn-danger">Hapus</a>
+                            </div>
+
                             </td>
                         </tr>
                         <?php } ?>
