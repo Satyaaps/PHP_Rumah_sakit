@@ -83,10 +83,30 @@
                                     <td><?php echo isset($data['alamat']) ? $data['alamat'] : ''; ?></td>
                                     <td><?php echo isset($data['penyakit_bawaan']) ? $data['penyakit_bawaan'] : ''; ?></td>
                                     <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="editregister.php?ido=<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="hapusdataregister.php?ido=<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>" class="btn btn-sm btn-danger">Hapus</a>
-                                    </div>
+                                        <div class="btn-group" role="group">
+                                            <a href="editregister.php?ido=<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>" class="btn btn-sm btn-warning">Edit</a>
+                                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>">Hapus</button>
+                                        </div>
+
+                                        <!-- Delete Confirmation Modal -->
+                                        <div class="modal fade" id="deleteModal-<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>" tabindex="-1" aria-labelledby="deleteModalLabel-<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel-<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>">Hapus Data</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Anda yakin ingin menghapus data ini?</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                        <a href="hapusdataregister.php?ido=<?php echo isset($data['_id']) ? $data['_id'] : ''; ?>" class="btn btn-danger">Hapus</a>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <?php
