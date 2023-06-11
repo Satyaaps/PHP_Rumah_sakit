@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -104,7 +105,9 @@
                                     </div>
 
                                     <br>
+                                    <form role="form" action="index.php" method="post">
                                     <button type="submit" class="btn btn-info btn-block">Submit</button>					
+                                    </form>				
                                 </form>
                             </div>
                             <br>
