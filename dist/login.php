@@ -97,11 +97,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($status === 'member') {
             // Redirect to dashboard.php for members
-            header("Location: dashboard.php");
+            header("Location: profile.php?idu=" . $user['_id']);
             exit();
         } elseif ($status === 'admin') {
-            // Redirect to dashboardadmin.php for admins
-            header("Location: admindashboard.php");
+            // Redirect to admindashboard.php for admins
+            header("Location: admindashboard.php?idu=" . $user['_id']);
             exit();
         }
     } else {
@@ -109,3 +109,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+<div class="btn-group">
+    <a href="dashboard.php?idu=<?php echo $data['_id'];?>" class="btn btn-sm btn-warning">Login</a>
+    <a href="admindashboard.php?idu=<?php echo $data['_id'];?>" class="btn btn-sm btn-danger">Hapus</a>
+</div>
+

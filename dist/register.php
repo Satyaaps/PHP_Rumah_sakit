@@ -1,134 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta http-equiv="X-UA-compatible" content="ie=edge">
+    <meta name="author" content="" />
+  <title>Register</title>
+  <link rel="icon" type="image/x-icon" href="assets/medicikon.png" />
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f1f1f1;
+    }
+    
+    .register-container {
+      width: 400px; 
+      padding: 40px; 
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .register-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    
+    .register-container input[type="text"],
+    .register-container input[type="password"],
+    .register-container input[type="number"],
+    .register-container select {
+      width: 100%;
+      padding: 12px; 
+      margin-bottom: 20px; 
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 16px;
+      margin-left: -10px;
+    }
+    
+    .register-container .select-container {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .register-container .select-container select {
+      width: 48%;
+    }
+    
+    .register-container .btn-container {
+      display: flex;
+      justify-content: flex-end;
+    }
+    
+    .register-container input[type="submit"] {
+      padding: 12px; 
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 16px; 
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Register</h2>
+    <form action="register.php" method="POST">
+      <input type="text" name="idu" placeholder="ID User" required>
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="text" name="nama_pasien" placeholder="Nama Pasien" required>
+      <input type="text" name="no_telp" placeholder="No Telp" required>
+      <input type="number" name="umur" placeholder="Umur" required>
+      <div class="select-container">
+        <select name="jenis_kelamin" required>
+          <option value="" disabled selected>Pilih Jenis Kelamin</option>
+          <option value="Laki-laki">Laki-laki</option>
+          <option value="Perempuan">Perempuan</option>
+        </select>
+        <select name="status" required>
+          <option value="" disabled selected>Pilih Status</option>
+          <option value="admin">Admin</option>
+          <option value="member">Member</option>
+        </select>
+      </div>
+      <input type="text" name="penyakit_bawaan" placeholder="Penyakit Bawaan">
+      <div class="btn-container">
+        <input type="submit" value="Register">
+      </div>
+    </form>
+  </div>
+</body>
+</html>
+
 <?php
 session_start();
 
 include "dbconnect.php";
-$collection = $database->selectCollection("pasien");
+$collection = $database->selectCollection("user");
 
 // Menghubungkan ke server MongoDB
 $client = new MongoDB\Client("mongodb://localhost:27017");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nik = $_POST['nik'];
+    $id_user = $_POST['idu'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
     $nama_pasien = $_POST['nama_pasien'];
     $no_telp = $_POST['no_telp'];
     $jenis_kelamin = $_POST['jenis_kelamin'];
     $umur = $_POST['umur'];
-    $alamat = $_POST['alamat'];
     $penyakit_bawaan = $_POST['penyakit_bawaan'];
+    $status = $_POST['status'];
 
     // Menyimpan data ke koleksi
     $data = [
-        'nik' => $nik,
+        'id_user' => $id_user,
+        'username' => $username,
+        'password' => $password,
         'nama_pasien' => $nama_pasien,
         'no_telp' => $no_telp,
         'jenis_kelamin' => $jenis_kelamin,
         'umur' => $umur,
-        'alamat' => $alamat,
-        'penyakit_bawaan' => $penyakit_bawaan
+        'penyakit_bawaan' => $penyakit_bawaan,
+        'status' => $status
     ];
     $result = $collection->insertOne($data);
 
     if ($result->getInsertedCount() > 0) {
         echo "Berhasil menyimpan data.";
-        // Mengarahkan pengguna ke halaman index.php setelah berhasil menyimpan data
-        header("Location: profile.php");
+        // Mengarahkan pengguna ke halaman profile.php setelah berhasil menyimpan data
+        header("Location: login.php");
         exit();
     } else {
         echo "Gagal menyimpan data.";
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>HaiMedic Dashboard</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/medicikon.png" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
-</head>
-<body>
-<div class="d-flex" id="wrapper">
-    <!-- Sidebar-->
-    <div class="border-end bg-white" id="sidebar-wrapper">
-        <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
-        <div class="list-group list-group-flush">
-            <a href="admin.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
-            <a href="adminlistjanjitemu.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Temu</a>
-            <a href="adminlistjanjimedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Medis</a>
-            <a href="listobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>                    
-            <a href="pembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Pembelian Obat</a>
-        </div>
-    </div>
-    <!-- Page content wrapper-->
-    <div id="page-content-wrapper">
-        <!-- Top navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <div class="container-fluid">
-                <button class="btn btn-primary" id="sidebarToggle">Menu</button>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a href="profile.php" class="nav-link" href="#!">Profile</a></li>
-                        <li class="nav-item active"><a href="rekapmedis.php" class="nav-link" href="#!">Rekap Medis</a></li>
-                        <li class="nav-item active"><a href="logout.php" class="nav-link" href="#!">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- Page content-->
-        <div class="container-fluid">
-            <div class="col-sm-4">
-                <h3>Form Registrasi Pasien</h3>
-                <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <div class="form-group">
-                        <label>NIK</label>
-                        <input type="text" name="nik" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Nama Pasien</label>
-                        <input type="text" name="nama_pasien" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>No Telp</label>
-                        <input type="text" name="no_telp" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Jenis Kelamin</label>
-                        <select name="jenis_kelamin" class="form-control">
-                            <option value="" disabled selected>Pilih Opsi</option>
-                            <option value="Perempuan">Perempuan</option>
-                            <option value="Laki-laki">Laki-laki</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Umur</label>
-                        <input type="text" name="umur" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Alamat</label>
-                        <input type="text" name="alamat" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Penyakit Bawaan</label>
-                        <input type="text" name="penyakit_bawaan" class="form-control" placeholder="Tidak Ada/ Ada, Hemofilia *contoh*">
-                    </div>
-                    <br>
-                    <button type="submit" class="btn btn-info btn-block">Submit</button>
-                </form>
-            </div>
-            <br>
-        </div>
-    </div>
-</div>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
-</body>
-</html>
