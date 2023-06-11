@@ -80,7 +80,7 @@ $tampil = $collection->find();
             <form action="" method="POST" class="form-item">
                 <div class="form-group">
                     <label for="ido">ID OBAT</label>
-                    <input type="number" name="ido" value="<?php echo $_GET['ido']; ?>" class="form-control col-md-9" placeholder="Masukkan id obat">
+                    <input type="number" name="ido" value="<?php echo $data['ido']; ?>" class="form-control col-md-9" placeholder="Masukkan id obat" disabled>
                 </div>
 
                 <div class="form-group">
