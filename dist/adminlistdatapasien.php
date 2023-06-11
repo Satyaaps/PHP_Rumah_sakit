@@ -20,7 +20,7 @@
                 <div class="list-group list-group-flush">
                 <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
                 <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
-                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pasien</a>
+                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List User</a>
                 <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
                 <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
                 </div>
@@ -54,10 +54,10 @@
                     <table class="table table-bordered">
                         <tr>
                             <th>NO</th>
-                            <th>ID PASIEN</th>
+                            <th>ID USER</th>
                             <th>USERNAME</th>
                             <th>PASSWORD</th>
-                            <th>NAMA PASIEN</th>
+                            <th>NAMA USER</th>
                             <th>NO TELP</th>
                             <th>UMUR</th>
                             <th>JENIS KELAMIN</th>

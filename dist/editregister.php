@@ -2,15 +2,15 @@
 session_start();
 
 include "dbconnect.php";
-$collection = $database->selectCollection("pasien");
+$collection = $database->selectCollection("USER");
 
-if (isset($_GET['ido'])) {
-    $ido = $_GET['ido'];
-    if (preg_match('/^[0-9a-fA-F]{24}$/', $ido)) {
-        $objectId = new MongoDB\BSON\ObjectId($ido);
+if (isset($_GET['idu'])) {
+    $idu = $_GET['idu'];
+    if (preg_match('/^[0-9a-fA-F]{24}$/', $idu)) {
+        $objectId = new MongoDB\BSON\ObjectId($idu);
         $data = $collection->findOne(['_id' => $objectId]);
     } else {
-        // Tindakan yang harus diambil jika nilai ido tidak valid
+        // Tindakan yang harus diambil jika nilai idu tidak valid
         // Misalnya, alihkan pengguna ke halaman yang sesuai atau tampilkan pesan kesalahan
         echo "Invalid ObjectId";
         exit();
@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
         ]]
     );
     $_SESSION['success'] = "Data Pasien berhasil diubah";
-    header("Location: showregister.php?ido=" . $_POST['nik']);
+    header("Location: showregister.php?idu=" . $_POST['nik']);
     exit();
 }
 ?>

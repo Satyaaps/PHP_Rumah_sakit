@@ -53,9 +53,9 @@ $tampil = $collection->find();
     <div class="border-end bg-white" id="sidebar-wrapper">
         <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
         <div class="list-group list-group-flush">
-                <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
+        <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
                 <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
-                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pasien</a>
+                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List User</a>
                 <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
                 <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
         </div>
@@ -81,7 +81,7 @@ $tampil = $collection->find();
         <div class="container-fluid">
             <form action="" method="POST" class="form-item">
                 <div class="form-group">
-                    <label for="idu">ID PASIEN</label>
+                    <label for="idu">ID USER</label>
                     <input type="number" name="idu" value="<?php echo $data['idu']; ?>" class="form-control col-md-9" placeholder="Masukkan id obat" disabled>
                 </div>
 
@@ -96,7 +96,7 @@ $tampil = $collection->find();
                 </div>
 
                 <div class="form-group">
-                    <label for="nama_pasien">NAMA PASIEN</label>
+                    <label for="nama_pasien">NAMA USER</label>
                     <input type="text" name="nama_pasien" value="<?php echo $data['nama_pasien']; ?>" class="form-control col-md-9" placeholder="Masukkan Nama Pasien">
                 </div>
 
