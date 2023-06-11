@@ -46,7 +46,7 @@
                 <h3>Tabel Data Pasien</h3>  
                 <br>
                 <div class="card-body">
-                    <a href="index.php" class="btn btn-primary">Tambah Data</a>
+                    <a href="register.php" class="btn btn-primary">Tambah Data</a>
                     <br>
                     <br>
                     <table class="table table-bordered">
