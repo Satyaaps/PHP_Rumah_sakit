@@ -14,15 +14,18 @@ if (isset($_POST['submit'])) {
     $collection->updateOne(
         ['_id' => $objectId],
         ['$set' => [
+            'username' => $_POST['username'],
+            'password' => $_POST['password'],
             'nama_pasien' => $_POST['nama_pasien'],
             'no_telp' => $_POST['no_telp'],
             'umur' => $_POST['umur'],
-            'jenis_jelamin' => $_POST['jenis_kelamin'],
+            'jenis_kelamin' => $_POST['jenis_kelamin'],
             'penyakit_bawaan' => $_POST['penyakit_bawaan'],
+            'status' => $_POST['status'],
         ]]
     );
     $_SESSION['success'] = "Data Obat berhasil diubah";
-    header("Location: dashboard.php");
+    header("Location: adminlistdatapasien.php");
     exit();
 }
 
@@ -50,9 +53,9 @@ $tampil = $collection->find();
     <div class="border-end bg-white" id="sidebar-wrapper">
         <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
         <div class="list-group list-group-flush">
-                <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
+        <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
                 <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
-                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pasien</a>
+                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List User</a>
                 <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
                 <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
         </div>
@@ -79,27 +82,32 @@ $tampil = $collection->find();
             <form action="" method="POST" class="form-item">
                 <div class="form-group">
                     <label for="idu">ID USER</label>
-                    <input type="number" name="idu" value="<?php echo $data['idu']; ?>" class="form-control col-md-9" placeholder="ID USER" disabled>
+                    <input type="number" name="idu" value="<?php echo $data['idu']; ?>" class="form-control col-md-9" placeholder="Masukkan id obat" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">USERNAME</label>
+                    <input type="text" name="username" value="<?php echo $data['username']; ?>" class="form-control col-md-9" placeholder="Masukan Username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">PASSWORD</label>
+                    <input type="text" name="password" value="<?php echo $data['password']; ?>" class="form-control col-md-9" placeholder="Masukkan Password">
                 </div>
 
                 <div class="form-group">
                     <label for="nama_pasien">NAMA USER</label>
-                    <input type="text" name="nama_pasien" value="<?php echo $data['nama_pasien']; ?>" class="form-control col-md-9" placeholder="NAMA PASIEN">
+                    <input type="text" name="nama_pasien" value="<?php echo $data['nama_pasien']; ?>" class="form-control col-md-9" placeholder="Masukkan Nama Pasien">
                 </div>
 
                 <div class="form-group">
                     <label for="no_telp">NO TELP</label>
-                    <input type="text" name="no_telp" value="<?php echo $data['no_telp']; ?>" class="form-control col-md-9" placeholder="NO TELP">
+                    <input type="text" name="no_telp" value="<?php echo $data['no_telp']; ?>" class="form-control col-md-9" placeholder="Masukkan No Telp">
                 </div>
 
                 <div class="form-group">
                     <label for="umur">UMUR</label>
-                    <input type="number" name="umur" value="<?php echo $data['umur']; ?>" class="form-control col-md-9" placeholder="UMUM">
-                </div>
-
-                <div class="form-group">
-                    <label for="penyakit_bawaan">PENYAKIT BAWAAN</label>
-                    <input type="text" name="penyakit_bawaan" value="<?php echo $data['penyakit_bawaan']; ?>" class="form-control col-md-9" placeholder="TIDAK ADA">
+                    <input type="text" name="umur" value="<?php echo $data['umur']; ?>" class="form-control col-md-9" placeholder="Masukkan Umur">
                 </div>
 
                 <div class="form-group">
@@ -109,10 +117,17 @@ $tampil = $collection->find();
                         <option value="Perempuan" <?php if ($data && $data['jenis_kelamin'] == 'Perempuan') echo 'selected'; ?>>Perempuan</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="status">USER STATUS</label>
+                    <select name="status" class="form-control col-md-9">
+                        <option value="admin" <?php if ($data && $data['status'] == 'admin') echo 'selected'; ?>>admin</option>
+                        <option value="member" <?php if ($data && $data['status'] == 'member') echo 'selected'; ?>>member</option>
+                    </select>
+                </div>
                 <br>
                 <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
-                <a href="profile.php?idu=<?php echo $user['_id']; ?>" class="btn btn-primary">Kembali</a>
-
+                <a href="adminlistobat.php" class="btn btn-primary">Kembali</a>
             </form>
         </div>
     </div>

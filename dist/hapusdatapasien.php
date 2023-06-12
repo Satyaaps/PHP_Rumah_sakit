@@ -71,30 +71,30 @@
    <body>
       <div class="login-container">
          <br>
-         <h2><strong>Hapus Data Obat?</strong></h2>
+         <h2><strong>Hapus Data Pasien?</strong></h2>
 
          <?php
             include "dbconnect.php";
-            $collection = $database->selectCollection("obat");
+            $collection = $database->selectCollection("user");
 
-            if (isset($_GET['ido'])) {
-                $kb = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($_GET['ido'])]);
+            if (isset($_GET['idu'])) {
+                $kb = $collection->findOne(['_id' => new MongoDB\BSON\ObjectID($_GET['idu'])]);
             }
             if(isset($_POST['submit'])){
                
             include 'dbconnect.php';
-            $collection->deleteOne(['_id' => new MongoDB\BSON\ObjectID($_GET['ido'])]);
+            $collection->deleteOne(['_id' => new MongoDB\BSON\ObjectID($_GET['idu'])]);
             $_SESSION['success'] = "Data Berhasil dihapus";
-            header("Location: adminlistobat.php");
+            header("Location: adminlistdatapasien.php");
             }
 
         ?>
-         <h3> Nama&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo "$kb->nama_obat"; ?> <br> ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <?php echo "$kb->ido"; ?></h3>
+         <h3> Nama&nbsp;&nbsp;&nbsp;&nbsp;: <?php echo "$kb->nama_pasien"; ?> <br> ID &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : <?php echo "$kb->idu"; ?></h3>
          <br>
          <form method="POST">
             <div class="form-group">
-               <input type="hidden" value="<?php echo "$kb->_id"; ?>" class="form-control" name="ido">
-               <a href="adminlistobat.php" class="btn btn-primary">Kembali</a>
+               <input type="hidden" value="<?php echo "$kb->_id"; ?>" class="form-control" name="idu">
+               <a href="adminlistdatapasien.php" class="btn btn-primary">Kembali</a>
                <button type="submit" name="submit" class="btn btn-danger">Hapus</button>
             </div>
          </form>

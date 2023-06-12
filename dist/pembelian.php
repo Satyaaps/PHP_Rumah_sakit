@@ -42,13 +42,92 @@
                     </div>
                 </nav>
                 <!-- Page content-->
-                <div class="container-fluid">
-                    <h1 class="mt-4">HaiMedic!</h1>
-                    <p>HaiMedic adalah sebuah layanan rumah sakit berbasis website yang dirancang untuk memudahkan pasien dalam mengakses perawatan kesehatan. Dengan HaiMedic, pasien dapat dengan mudah membuat janji temu dengan dokter, mengatur janji medis untuk pemeriksaan kesehatan, serta melakukan pembelian obat secara online.</p>
-                    <p>Melalui platform HaiMedic, pasien dapat mencari dokter yang sesuai dengan spesialisasi yang mereka butuhkan, melihat jadwal ketersediaan dokter, dan memesan janji temu secara langsung. Ini menghemat waktu dan usaha pasien dalam mencari jadwal yang cocok dan menghindari antrian yang panjang.</p>
-                    <p>Selain itu, HaiMedic juga menyediakan fitur pembelian obat secara online. Pasien dapat melihat daftar obat yang tersedia, memilih obat yang dibutuhkan, dan memesan langsung melalui platform. Ini memudahkan pasien untuk mendapatkan obat yang mereka perlukan tanpa harus datang ke apotek fisik.</p>
-                    <p>Dengan HaiMedic, pasien dapat mengakses layanan kesehatan secara efisien dan mudah. Dengan fitur-fitur yang ditawarkan, HaiMedic bertujuan untuk memberikan pengalaman yang lebih baik dalam hal membuat janji temu dengan dokter, pemeriksaan kesehatan, dan pembelian obat bagi para pasien.</p>
-                </div>
+                <form method="GET" action="">
+    Cari Nama <input type="text" name="s">
+    <input type="submit" value="cari">
+</form>
+<?php
+    include 'dbconnect.php'; // Sertakan file dbconnect.php yang berisi koneksi ke MongoDB
+    $collection = $database->selectCollection("obat");
+
+    // Tampilkan data default hanya jika tidak ada pencarian
+    if (!isset($_GET['s'])) {
+        $result = $collection->find();
+
+        echo '<form method="GET" action="">
+                Cari Nama <input type="text" name="s">
+                <input type="submit" value="cari">
+            </form>';
+
+        echo '<table class="table table-bordered">
+                <tr>
+                    <th>NO</th>
+                    <th>ID OBAT</th>
+                    <th>NAMA OBAT</th>
+                    <th>STOK</th>
+                    <th>HARGA JUAL</th>
+                    <th>HARGA BELI</th>
+                    <th>JENIS OBAT</th>
+                </tr>';
+
+        $no = 1;
+
+        foreach ($result as $data) {
+            echo '<tr>
+                    <td>' . $no++ . '</td>
+                    <td>' . $data['ido'] . '</td>
+                    <td>' . $data['nama_obat'] . '</td>
+                    <td>' . $data['stok'] . '</td>
+                    <td>' . $data['harga_jual'] . '</td>
+                    <td>' . $data['harga_beli'] . '</td>
+                    <td>' . $data['jenis_obat'] . '</td>
+                  </tr>';
+        }
+
+        echo '</table>';
+    }
+
+    // Cek apakah ada pencarian
+    if(isset($_GET['s'])) {
+        $search = $_GET['s'];
+
+        $query = ['nama_obat' => ['$regex' => $search, '$options' => 'i']];
+        $result = $collection->find($query);
+
+        echo '<h3>Hasil Pencarian untuk: ' . $search . '</h3>';
+
+        echo '<table class="table table-bordered">
+                <tr>
+                    <th>NO</th>
+                    <th>ID OBAT</th>
+                    <th>NAMA OBAT</th>
+                    <th>STOK</th>
+                    <th>HARGA JUAL</th>
+                    <th>HARGA BELI</th>
+                    <th>JENIS OBAT</th>
+                </tr>';
+
+        $no = 1;
+
+        foreach ($result as $data) {
+            echo '<tr>
+                    <td>' . $no++ . '</td>
+                    <td>' . $data['ido'] . '</td>
+                    <td>' . $data['nama_obat'] . '</td>
+                    <td>' . $data['stok'] . '</td>
+                    <td>' . $data['harga_jual'] . '</td>
+                    <td>' . $data['harga_beli'] . '</td>
+                    <td>' . $data['jenis_obat'] . '</td>
+                  </tr>';
+        }
+
+        echo '</table>';
+    }
+?>
+
+
+
+
             </div>
         </div>
         <!-- Bootstrap core JS-->

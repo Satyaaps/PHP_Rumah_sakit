@@ -39,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: rekapmedis.php');
     exit();
 }
+
+$tampil = $collection->find();
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +61,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Sidebar-->
         <div class="border-end bg-white" id="sidebar-wrapper">
             <!-- ... -->
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <div class="border-end bg-white" id="sidebar-wrapper">
+        <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
+        <div class="list-group list-group-flush">
+        <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
+                <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
+                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List User</a>
+                <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
+                <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
         </div>
         <!-- Page content wrapper-->
         <div id="page-content-wrapper">
@@ -170,6 +182,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </tbody>
                 </table>
             </div>
+        </nav>
+        <!-- Page content-->
+        <div class="container-fluid">
+            <form action="" method="POST" class="form-item">
+                <div class="form-group">
+                    <label for="ido">ID OBAT</label>
+                    <input type="number" name="ido" value="<?php echo $data['ido']; ?>" class="form-control col-md-9" placeholder="Masukkan id obat" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="nama_obat">NAMA OBAT</label>
+                    <input type="text" name="nama_obat" value="<?php echo $data['nama_obat']; ?>" class="form-control col-md-9" placeholder="Masukkan nama">
+                </div>
+
+                <div class="form-group">
+                    <label for="stok">STOK</label>
+                    <input type="text" name="stok" value="<?php echo $data['stok']; ?>" class="form-control col-md-9" placeholder="Masukkan stok">
+                </div>
+
+                <div class="form-group">
+                    <label for="harga_jual">HARGA JUAL</label>
+                    <input type="number" name="harga_jual" value="<?php echo $data['harga_jual']; ?>" class="form-control col-md-9" placeholder="Masukkan harga jual">
+                </div>
+
+                <div class="form-group">
+                    <label for="harga_beli">HARGA BELI</label>
+                    <input type="number" name="harga_beli" value="<?php echo $data['harga_beli']; ?>" class="form-control col-md-9" placeholder="Masukkan harga beli">
+                </div>
+
+                <div class="form-group">
+                    <label for="jenis_obat">JENIS OBAT</label>
+                    <select name="jenis_obat" class="form-control col-md-9">
+                        <option value="Tablet" <?php if ($data && $data['jenis_obat'] == 'Tablet') echo 'selected'; ?>>Tablet</option>
+                        <option value="Kapsul" <?php if ($data && $data['jenis_obat'] == 'Kapsul') echo 'selected'; ?>>Kapsul</option>
+                        <option value="Sirup" <?php if ($data && $data['jenis_obat'] == 'Sirup') echo 'selected'; ?>>Sirup</option>
+                    </select>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+                <a href="adminlistobat.php" class="btn btn-primary">Kembali</a>
+            </form>
         </div>
     </div>
     <!-- Bootstrap core JS-->
