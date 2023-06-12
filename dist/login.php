@@ -9,7 +9,6 @@
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/medicikon.png" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
     <style>
         body {
             font-family: Arial, sans-serif;

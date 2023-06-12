@@ -51,7 +51,6 @@
                     <a href="tambahdataobat.php" class="btn btn-primary">Tambah Data</a>
                     <a href="adminsearchobat.php" class="btn btn-primary">Cari Data</a>
                     <br>
-                    <br>
                     <table class="table table-bordered">
                         <tr>
                             <th>NO</th>
@@ -81,7 +80,7 @@
                         <tr>
                             <td><?php echo $no++;?> </td>
                             <td><?php echo $data ['ido']?></td>
-                            <td><?php echo $data ['nama_obat']?></td>
+                            <td><?php echo $data ['nama_obat']?></td>+
                             <td><?php echo $data ['stok']?></td>
                             <td><?php echo $data ['harga_jual']?></td>
                             <td><?php echo $data ['harga_beli']?></td>

@@ -8,7 +8,6 @@
     <meta name="author" content="" />
   <title>Register</title>
   <link rel="icon" type="image/x-icon" href="assets/medicikon.png" />
-  <script src="js/jquery-3.4.1.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
