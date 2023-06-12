@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,14 +18,13 @@
             <div class="border-end bg-white" id="sidebar-wrapper">
                 <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
                 <div class="list-group list-group-flush">
-                    <a href="index.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
-                    <a href="janjitemu.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Temu</a>
-                    <a href="janjimedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Medis</a>
-                    <a href="listobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>                    
-                    <a href="pembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Pembelian Obat</a>
-
+                <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
+                <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
+                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List User</a>
+                <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
+                <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
                 </div>
-            </div>
+            </div>  
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
@@ -41,13 +41,52 @@
                         </div>
                     </div>
                 </nav>
-                <!-- Page content-->
-                <div class="container-fluid">
-                    <h1 class="mt-4">HaiMedic!</h1>
-                    <p>HaiMedic adalah sebuah layanan rumah sakit berbasis website yang dirancang untuk memudahkan pasien dalam mengakses perawatan kesehatan. Dengan HaiMedic, pasien dapat dengan mudah membuat janji temu dengan dokter, mengatur janji medis untuk pemeriksaan kesehatan, serta melakukan pembelian obat secara online.</p>
-                    <p>Melalui platform HaiMedic, pasien dapat mencari dokter yang sesuai dengan spesialisasi yang mereka butuhkan, melihat jadwal ketersediaan dokter, dan memesan janji temu secara langsung. Ini menghemat waktu dan usaha pasien dalam mencari jadwal yang cocok dan menghindari antrian yang panjang.</p>
-                    <p>Selain itu, HaiMedic juga menyediakan fitur pembelian obat secara online. Pasien dapat melihat daftar obat yang tersedia, memilih obat yang dibutuhkan, dan memesan langsung melalui platform. Ini memudahkan pasien untuk mendapatkan obat yang mereka perlukan tanpa harus datang ke apotek fisik.</p>
-                    <p>Dengan HaiMedic, pasien dapat mengakses layanan kesehatan secara efisien dan mudah. Dengan fitur-fitur yang ditawarkan, HaiMedic bertujuan untuk memberikan pengalaman yang lebih baik dalam hal membuat janji temu dengan dokter, pemeriksaan kesehatan, dan pembelian obat bagi para pasien.</p>
+            <!-- Page content-->
+        <div class="container-fluid">
+        <div class="col-sm-4">
+            <h3>Tabel Data Obat</h3>  
+            <br>
+            </form>
+                <div class="card-body">
+                    <a href="searchobat.php" class="btn btn-primary">Cari Data</a>
+                    <br>
+                    <br>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>NO</th>
+                            <th>ID OBAT</th>
+                            <th>NAMA OBAT</th>
+                            <th>STOK</th>
+                            <th>HARGA JUAL</th>
+                            <th>HARGA BELI</th>
+                            <th>JENIS OBAT</th>
+                        </tr>
+                    <?php
+                        include "dbconnect.php";
+                        $collection = $database->selectCollection("obat");
+                        $no = 1;
+                        $NAMA = "";
+                        if (isset($_GET['s']))
+                        {
+                            $NAMA = $_GET['s'];
+                            // $tampil = mysqli_query($koneksi, "SELECT * FROM tblmhs WHERE NAMA LIKE '%$NAMA'");
+                            // $tampil = mysqli_query($koneksi, "SELECT * FROM tblmhs WHERE NAMA LIKE '%$NAMA'");
+                        }else
+                        // $tampil = mysqli_query($koneksi, "SELECT * FROM tblmhs");
+                        $tampil = $collection->find();
+                        foreach ($tampil as $data) {
+                        ?>
+                        <tr>
+                            <td><?php echo $no++;?> </td>
+                            <td><?php echo $data ['ido']?></td>
+                            <td><?php echo $data ['nama_obat']?></td>
+                            <td><?php echo $data ['stok']?></td>
+                            <td><?php echo $data ['harga_jual']?></td>
+                            <td><?php echo $data ['harga_beli']?></td>
+                            <td><?php echo $data ['jenis_obat']?></td>
+                        </tr>
+                        <?php } ?>
+                    </table>
                 </div>
             </div>
         </div>

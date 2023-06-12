@@ -82,7 +82,7 @@ $tampil = $collection->find();
                     <input type="number" name="idu" value="<?php echo $data['idu']; ?>" class="form-control col-md-9" placeholder="ID USER" disabled>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group"> 
                     <label for="nama_pasien">NAMA USER</label>
                     <input type="text" name="nama_pasien" value="<?php echo $data['nama_pasien']; ?>" class="form-control col-md-9" placeholder="NAMA PASIEN">
                 </div>

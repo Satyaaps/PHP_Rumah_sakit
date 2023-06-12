@@ -61,6 +61,7 @@
                             <th>HARGA JUAL</th>
                             <th>HARGA BELI</th>
                             <th>JENIS OBAT</th>
+                            <th>AKSI</th>
                         </tr>
                     <?php
                         include "dbconnect.php";
