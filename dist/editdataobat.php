@@ -1,28 +1,42 @@
 <?php
 session_start();
 
-include "dbconnect.php";
-$collection = $database->selectCollection("obat");
+require 'dbconnect.php';
+$collection = $database->selectCollection("janji_medis");
 
-if (isset($_GET['ido'])) {
-    $objectId = new MongoDB\BSON\ObjectID($_GET['ido']);
-    $data = $collection->findOne(['_id' => $objectId]);
-}
+// Ambil semua data janji medis dari koleksi
+$janji_medis = $collection->find();
 
-if (isset($_POST['submit'])) {
-    $objectId = new MongoDB\BSON\ObjectID($_GET['ido']);
+// Fungsi untuk mengubah data janji medis berdasarkan ID
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
+    $nik = $_POST['nik'];
+    $nama_pasien = $_POST['nama_pasien'];
+    $kategori_layanan = $_POST['kategori_layanan'];
+    $tanggal = date('m/d/y', strtotime($_POST['tanggal']));
+    $jadwal = $_POST['jadwal'];
+    $riwayat_medis = $_POST['riwayat_medis'];
+    $no_telepon = $_POST['no_telepon'];
+    $memiliki_asuransi = $_POST['asuransi'];
+    $keterangan_tambahan = $_POST['keterangan_tambahan'];
+
     $collection->updateOne(
-        ['_id' => $objectId],
+        ['_id' => new MongoDB\BSON\ObjectID($id)],
         ['$set' => [
-            'nama_obat' => $_POST['nama_obat'],
-            'stok' => $_POST['stok'],
-            'harga_jual' => $_POST['harga_jual'],
-            'harga_beli' => $_POST['harga_beli'],
-            'jenis_obat' => $_POST['jenis_obat'],
+            'nik' => $nik,
+            'nama_pasien' => $nama_pasien,
+            'kategori_layanan' => $kategori_layanan,
+            'tanggal' => $tanggal,
+            'jadwal' => $jadwal,
+            'riwayat_medis' => $riwayat_medis,
+            'no_telepon' => $no_telepon,
+            'memiliki_asuransi' => $memiliki_asuransi,
+            'keterangan_tambahan' => $keterangan_tambahan
         ]]
     );
-    $_SESSION['success'] = "Data Obat berhasil diubah";
-    header("Location: adminlistobat.php");
+
+    // Redirect ke halaman rekapmedis.php setelah mengubah data
+    header('Location: rekapmedis.php');
     exit();
 }
 
@@ -35,16 +49,18 @@ $tampil = $collection->find();
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
-    <meta http-equiv="X-UA-compatible" content="ie=edge">
     <meta name="author" content="" />
     <title>HaiMedic Dashboard</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/medicikon.png" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
-    <script src="js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <!-- ... -->
 <div class="d-flex" id="wrapper">
     <!-- Sidebar-->
     <div class="border-end bg-white" id="sidebar-wrapper">
@@ -56,22 +72,115 @@ $tampil = $collection->find();
                 <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
                 <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
         </div>
-    </div>
-    <!-- Page content wrapper-->
-    <div id="page-content-wrapper">
-        <!-- Top navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <!-- ... -->
+            <!-- Page content-->
             <div class="container-fluid">
-                <button class="btn btn-primary" id="sidebarToggle">Menu</button>
+                <h3>Rekap Medis</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>NIK</th>
+                            <th>Nama Pasien</th>
+                            <th>Kategori Layanan Medis</th>
+                            <th>Tanggal</th>
+                            <th>Jadwal</th>
+                            <th>Riwayat Medis</th>
+                            <th>No Telepon</th>
+                            <th>Memiliki Asuransi</th>
+                            <th>Keterangan Tambahan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($janji_medis as $janji) : ?>
+                            <tr>
+                                <td><?php echo $janji['nik']; ?></td>
+                                <td><?php echo $janji['nama_pasien']; ?></td>
+                                <td><?php echo $janji['kategori_layanan']; ?></td>
+                                <td><?php echo date('m/d/y', strtotime($janji['tanggal'])); ?></td>
+                                <td><?php echo $janji['jadwal']; ?></td>
+                                <td><?php echo $janji['riwayat_medis']; ?></td>
+                                <td><?php echo $janji['no_telepon']; ?></td>
+                                <td><?php echo $janji['memiliki_asuransi']; ?></td>
+                                <td><?php echo $janji['keterangan_tambahan']; ?></td>
+                                <td>
+                                    <!-- Button untuk memunculkan modal edit -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $janji['_id']; ?>">
+                                        Edit
+                                    </button>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a href="profile.php" class="nav-link" href="#!">Profile</a></li>
-                        <li class="nav-item active"><a href="rekapmedis.php" class="nav-link" href="#!">Rekap Medis</a></li>
-                        <li class="nav-item active"><a href="logout.php" class="nav-link" href="#!">Logout</a></li>
-                    </ul>
-                </div>
+                                    <!-- Modal edit -->
+                                    <div class="modal fade" id="editModal<?php echo $janji['_id']; ?>" tabindex="-1" aria-labelledby="editModalLabel<?php echo $janji['_id']; ?>" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel<?php echo $janji['_id']; ?>">Edit Janji Medis</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="POST" action="rekapmedis.php">
+                                                        <input type="hidden" name="id" value="<?php echo $janji['_id']; ?>">
+                                                        <div class="form-group">
+                                                            <label>NIK</label>
+                                                            <input type="text" name="nik" class="form-control" value="<?php echo $janji['nik']; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Nama Pasien</label>
+                                                            <input type="text" name="nama_pasien" class="form-control" value="<?php echo $janji['nama_pasien']; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Kategori Layanan Medis</label>
+                                                            <select name="kategori_layanan" class="form-control">
+                                                                <option value="Poli Umum" <?php echo ($janji['kategori_layanan'] == 'Poli Umum') ? 'selected' : ''; ?>>Poli Umum</option>
+                                                                <option value="Poli Gigi" <?php echo ($janji['kategori_layanan'] == 'Poli Gigi') ? 'selected' : ''; ?>>Poli Gigi</option>
+                                                                <option value="Poli Orthopedi" <?php echo ($janji['kategori_layanan'] == 'Poli Orthopedi') ? 'selected' : ''; ?>>Poli Orthopedi</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Tanggal</label>
+                                                            <input type="date" name="tanggal" class="form-control" value="<?php echo date('Y-m-d', strtotime($janji['tanggal'])); ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Jadwal</label>
+                                                            <input type="text" name="jadwal" class="form-control" value="<?php echo $janji['jadwal']; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Riwayat Medis</label>
+                                                            <textarea name="riwayat_medis" class="form-control"><?php echo $janji['riwayat_medis']; ?></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>No Telepon</label>
+                                                            <input type="text" name="no_telepon" class="form-control" value="<?php echo $janji['no_telepon']; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Memiliki Asuransi</label>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="asuransi" value="Ya" <?php echo ($janji['memiliki_asuransi'] == 'Ya') ? 'checked' : ''; ?>>
+                                                                <label class="form-check-label">Ya</label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="asuransi" value="Tidak" <?php echo ($janji['memiliki_asuransi'] == 'Tidak') ? 'checked' : ''; ?>>
+                                                                <label class="form-check-label">Tidak</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Keterangan Tambahan</label>
+                                                            <textarea name="keterangan_tambahan" class="form-control"><?php echo $janji['keterangan_tambahan']; ?></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </nav>
         <!-- Page content-->
@@ -116,10 +225,7 @@ $tampil = $collection->find();
             </form>
         </div>
     </div>
-</div>
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+    <!-- Bootstrap core JS-->
+    <!-- ... -->
 </body>
 </html>
