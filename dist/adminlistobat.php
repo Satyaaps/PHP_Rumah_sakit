@@ -49,7 +49,7 @@
             </form>
                 <div class="card-body">
                     <a href="tambahdataobat.php" class="btn btn-primary">Tambah Data</a>
-                    <a href="searchobat.php" class="btn btn-primary">Cari Data</a>
+                    <a href="adminsearchobat.php" class="btn btn-primary">Cari Data</a>
                     <br>
                     <br>
                     <table class="table table-bordered">
@@ -91,7 +91,6 @@
                                 <a href="editdataobat.php?ido=<?php echo $data['_id'];?>" class="btn btn-sm btn-warning">Edit</a>
                                 <a href="hapusdataobat.php?ido=<?php echo $data['_id'];?>" class="btn btn-sm btn-danger">Hapus</a>
                             </div>
-
                             </td>
                         </tr>
                         <?php } ?>
