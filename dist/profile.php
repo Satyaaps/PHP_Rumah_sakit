@@ -4,26 +4,32 @@ session_start();
 include "dbconnect.php";
 $collection = $database->selectCollection("user");
 
-if (isset($_GET['idu'])) {
-    $objectId = new MongoDB\BSON\ObjectID($_GET['idu']);
+if (isset($_GET['_id'])) {
+    $objectId = new MongoDB\BSON\ObjectID($_GET['_id']);
     $data = $collection->findOne(['_id' => $objectId]);
 }
 
 if (isset($_POST['submit'])) {
-    $objectId = new MongoDB\BSON\ObjectID($_GET['idu']);
+    $objectId = new MongoDB\BSON\ObjectID($_GET['_id']);
     $collection->updateOne(
         ['_id' => $objectId],
         ['$set' => [
             'nama_pasien' => $_POST['nama_pasien'],
             'no_telp' => $_POST['no_telp'],
-            'umur' => $_POST['umur'],
+            'tanggal_lahir' => $_POST['tanggal_lahir'],
             'jenis_jelamin' => $_POST['jenis_kelamin'],
             'penyakit_bawaan' => $_POST['penyakit_bawaan'],
         ]]
     );
-    $_SESSION['success'] = "Data Obat berhasil diubah";
+    $_SESSION['success'] = "Data User berhasil diubah";
     header("Location: dashboard.php");
     exit();
+}
+function calculateAge($dateOfBirth) {
+    $dobDate = new DateTime($dateOfBirth);
+    $today = new DateTime();
+    $age = $dobDate->diff($today)->y;
+    return $age;
 }
 
 $tampil = $collection->find();
@@ -42,7 +48,7 @@ $tampil = $collection->find();
     <link rel="icon" type="image/x-icon" href="assets/medicikon.png" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
-    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <div class="d-flex" id="wrapper">
@@ -75,37 +81,34 @@ $tampil = $collection->find();
         <!-- Page content-->
         <div class="container-fluid">
             <form action="" method="POST" class="form-item">
-                <div class="form-group">
-                    <label for="idu">ID USER</label>
-                    <input type="number" name="idu" value="<?php echo $data['idu']; ?>" class="form-control col-md-9" placeholder="ID USER" disabled>
-                </div>
 
-                <div class="form-group"> 
-                    <label for="nama_pasien">NAMA USER</label>
-                    <input type="text" name="nama_pasien" value="<?php echo $data['nama_pasien']; ?>" class="form-control col-md-9" placeholder="NAMA PASIEN">
-                </div>
+            <label for="nama_pasien">Nama User</label>
+            <input type="text" id="nama_pasien" name="nama_pasien" value="<?php echo $data['nama_pasien']; ?>" class="form-control col-md-9" placeholder="NAMA PASIEN">
+
 
                 <div class="form-group">
-                    <label for="no_telp">NO TELP</label>
+                    <label for="no_telp">No.Telp</label>
                     <input type="text" name="no_telp" value="<?php echo $data['no_telp']; ?>" class="form-control col-md-9" placeholder="NO TELP">
                 </div>
-
                 <div class="form-group">
-                    <label for="umur">UMUR</label>
-                    <input type="number" name="umur" value="<?php echo $data['umur']; ?>" class="form-control col-md-9" placeholder="UMUM">
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" value="<?php echo $data['tanggal_lahir']; ?>" class="form-control col-md-9" id="tanggal_lahir" onchange="calculateAge()" required>
+                </div>
+                <div class="form-group">
+                    <label for="umur">Umur:</label>
+                    <p id="umur"><?php echo calculateAge($data['tanggal_lahir']); ?> tahun</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="penyakit_bawaan">PENYAKIT BAWAAN</label>
-                    <input type="text" name="penyakit_bawaan" value="<?php echo $data['penyakit_bawaan']; ?>" class="form-control col-md-9" placeholder="TIDAK ADA">
-                </div>
-
-                <div class="form-group">
-                    <label for="jenis_kelamin">JENIS KELAMIN</label>
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
                     <select name="jenis_kelamin" class="form-control col-md-9">
                         <option value="Laki-laki" <?php if ($data && $data['jenis_kelamin'] == 'Laki-laki') echo 'selected'; ?>>Laki-laki</option>
                         <option value="Perempuan" <?php if ($data && $data['jenis_kelamin'] == 'Perempuan') echo 'selected'; ?>>Perempuan</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="penyakit_bawaan">Penyakit Bawaan</label>
+                    <input type="text" name="penyakit_bawaan" value="<?php echo $data['penyakit_bawaan']; ?>" class="form-control col-md-9" placeholder="TIDAK ADA">
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
