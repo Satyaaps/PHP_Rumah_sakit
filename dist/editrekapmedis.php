@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
             $nama_pasien = $_POST['nama_pasien'];
             $kategori_layanan = $_POST['kategori_layanan'];
             $tanggal = date('m/d/y', strtotime($_POST['tanggal']));
-            $jadwal = $_POST['jadwal'];
+            $layanan = $_POST['layanan'];
             $riwayat_medis = $_POST['riwayat_medis'];
             $no_telepon = $_POST['no_telepon'];
             $memiliki_asuransi = $_POST['asuransi'];
@@ -33,7 +33,7 @@ if (isset($_GET['id'])) {
                     'nama_pasien' => $nama_pasien,
                     'kategori_layanan' => $kategori_layanan,
                     'tanggal' => $tanggal,
-                    'jadwal' => $jadwal,
+                    'layanan' => $layanan,
                     'riwayat_medis' => $riwayat_medis,
                     'no_telepon' => $no_telepon,
                     'memiliki_asuransi' => $memiliki_asuransi,
@@ -84,71 +84,78 @@ if (isset($_GET['id'])) {
             <div class="container-fluid">
                 <h3>Edit Janji Medis</h3>
                 <form method="POST" action="">
-                <div class="form-group">
-                     <label for="nik">NIK</label>
-                     <input type="text" class="form-control" id="nik" name="nik" value="<?php echo $janji['nik']; ?>" readonly required>
+                    <div class="form-group">
+                        <label for="nik">NIK</label>
+                        <input type="text" class="form-control" id="nik" name="nik" value="<?php echo $janji['nik']; ?>" required>
                     </div><br>
-
                     <div class="form-group">
                         <label for="nama_pasien">Nama Pasien</label>
                         <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" value="<?php echo $janji['nama_pasien']; ?>" required>
                     </div><br>
-
                     <div class="form-group">
-                         <label for="kategori_layanan">Kategori Layanan Medis</label>
+                        <label for="kategori_layanan">Kategori Layanan Medis</label>
                         <select class="form-control" id="kategori_layanan" name="kategori_layanan" required>
-                              <option value="Poli Umum" <?php if ($janji['kategori_layanan'] === 'Poli Umum') echo 'selected'; ?>>Poli Umum</option>
-                             <option value="Poli Gigi" <?php if ($janji['kategori_layanan'] === 'Poli Gigi') echo 'selected'; ?>>Poli Gigi</option>
-                             <option value="Poli Orthopedi" <?php if ($janji['kategori_layanan'] === 'Poli Orthopedi') echo 'selected'; ?>>Poli Orthopedi</option>
-                    </select>
+                            <option value="Poli Umum" <?php if ($janji['kategori_layanan'] == "Poli Umum") echo "selected"; ?>>Poli Umum</option>
+                            <option value="Poli Gigi" <?php if ($janji['kategori_layanan'] == "Poli Gigi") echo "selected"; ?>>Poli Gigi</option>
+                            <option value="Poli Orthopedi" <?php if ($janji['kategori_layanan'] == "Poli Orthopedi") echo "selected"; ?>>Poli Orthopedi</option>
+                        </select>
                     </div><br>
-
-
+                    <div class="form-group">
+                        <label for="layanan">Layanan</label>
+                        <select class="form-control" id="layanan" name="layanan" required>
+                        </select>
+                    </div><br>
                     <div class="form-group">
                         <label for="tanggal">Tanggal</label>
                         <input type="text" class="form-control" id="tanggal" name="tanggal" value="<?php echo $janji['tanggal']; ?>" required>
                     </div><br>
-
-                    <div class="form-group">
-    <label for="jadwal">Jadwal</label>
-    <select class="form-control" id="jadwal" name="jadwal" required>
-        <option value="08.00 - 10.00" <?php if ($janji['jadwal'] === '08.00 - 10.00') echo 'selected'; ?>>08.00 - 10.00</option>
-        <option value="10.00 - 12.00" <?php if ($janji['jadwal'] === '10.00 - 12.00') echo 'selected'; ?>>10.00 - 12.00</option>
-        <option value="13.00 - 15.00" <?php if ($janji['jadwal'] === '13.00 - 15.00') echo 'selected'; ?>>13.00 - 15.00</option>
-        <option value="15.00 - 17.00" <?php if ($janji['jadwal'] === '15.00 - 17.00') echo 'selected'; ?>>15.00 - 17.00</option>
-    </select>
-</div><br>
-
-
                     <div class="form-group">
                         <label for="riwayat_medis">Riwayat Medis</label>
-                        <input type="text" class="form-control" id="riwayat_medis" name="riwayat_medis" value="<?php echo $janji['riwayat_medis']; ?>" required>
+                        <textarea class="form-control" id="riwayat_medis" name="riwayat_medis" rows="3"><?php echo $janji['riwayat_medis']; ?></textarea>
                     </div><br>
-
                     <div class="form-group">
-                        <label for="no_telepon">No Telepon</label>
+                        <label for="no_telepon">Nomor Telepon</label>
                         <input type="text" class="form-control" id="no_telepon" name="no_telepon" value="<?php echo $janji['no_telepon']; ?>" required>
                     </div><br>
-
                     <div class="form-group">
-                        <label for="asuransi">Memiliki Asuransi</label>
-                        <select class="form-control" id="asuransi" name="asuransi" required>
-                              <option value="Ya" <?php if($janji['memiliki_asuransi'] === 'Ya') echo 'selected'; ?>>Ya</option>
-                              <option value="Tidak" <?php if($janji['memiliki_asuransi'] === 'Tidak') echo 'selected'; ?>>Tidak</option>
-                        </select>
-                        </div><br>
-
-
+                    <label for="asuransi">Memiliki Asuransi</label>
+    <select class="form-control" id="asuransi" name="asuransi" required>
+        <option value="Ya">Ya</option>
+        <option value="Tidak">Tidak</option>
+    </select>
+                    </div><br>
                     <div class="form-group">
                         <label for="keterangan_tambahan">Keterangan Tambahan</label>
-                        <input type="text" class="form-control" id="keterangan_tambahan" name="keterangan_tambahan" value="<?php echo $janji['keterangan_tambahan']; ?>">
+                        <textarea class="form-control" id="keterangan_tambahan" name="keterangan_tambahan" rows="3"><?php echo $janji['keterangan_tambahan']; ?></textarea>
                     </div><br>
-
-                    <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
-                    <a href="rekapmedis.php" class="btn btn-secondary">Batal</a>
+                    <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
                 </form>
             </div>
         </div>
     </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom scripts-->
+    <script>
+        // Update options based on selected category
+        $(document).ready(function () {
+            $('#kategori_layanan').on('change', function () {
+                var category = $(this).val();
+                var layananDropdown = $('#layanan');
+                layananDropdown.empty();
+                if (category === "Poli Umum") {
+                    layananDropdown.append('<option value="Pemeriksaan Umum" <?php if ($janji["layanan"] == "Pemeriksaan Umum") echo "selected"; ?>>Pemeriksaan Umum</option>');
+                    layananDropdown.append('<option value="Pemeriksaan Darah" <?php if ($janji["layanan"] == "Pemeriksaan Darah") echo "selected"; ?>>Pemeriksaan Darah</option>');
+                } else if (category === "Poli Gigi") {
+                    layananDropdown.append('<option value="Pemeriksaan Gigi" <?php if ($janji["layanan"] == "Pemeriksaan Gigi") echo "selected"; ?>>Pemeriksaan Gigi</option>');
+                    layananDropdown.append('<option value="Pembersihan Gigi" <?php if ($janji["layanan"] == "Pembersihan Gigi") echo "selected"; ?>>Pembersihan Gigi</option>');
+                } else if (category === "Poli Orthopedi") {
+                    layananDropdown.append('<option value="Pemeriksaan Tulang" <?php if ($janji["layanan"] == "Pemeriksaan Tulang") echo "selected"; ?>>Pemeriksaan Tulang</option>');
+                    layananDropdown.append('<option value="Terapi Fisik" <?php if ($janji["layanan"] == "Terapi Fisik") echo "selected"; ?>>Terapi Fisik</option>');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

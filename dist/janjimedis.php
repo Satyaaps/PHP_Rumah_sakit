@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nik = $_POST['nik'];
     $nama_pasien = $_POST['nama_pasien'];
     $kategori_layanan = $_POST['kategori_layanan'];
-    $tanggal = date('m/d/y', strtotime('now'));
+    $layanan = isset($_POST['layanan']) ? $_POST['layanan'] : '';
+    $tanggal = date('m/d/Y', strtotime($_POST['tanggal']));
     $jadwal = $_POST['jadwal'];
     $riwayat_medis = $_POST['riwayat_medis'];
     $no_telepon = $_POST['no_telepon'];
@@ -21,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'nik' => $nik,
         'nama_pasien' => $nama_pasien,
         'kategori_layanan' => $kategori_layanan,
+        'layanan' => $layanan,
         'tanggal' => $tanggal,
         'jadwal' => $jadwal,
         'riwayat_medis' => $riwayat_medis,
@@ -29,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'keterangan_tambahan' => $keterangan_tambahan
     ]);
 
-    // Redirect ke halaman janjimedis.php
+    // Redirect ke halaman rekapmedis.php
     header('Location: rekapmedis.php');
     exit();
 }
@@ -55,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
         <div class="list-group list-group-flush">
             <a href="index.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
-            <a href="janjitemu.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Temu</a>
             <a href="janjimedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Medis</a>
             <a href="listobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
             <a href="pembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Pembelian Obat</a>
@@ -71,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                         <li class="nav-item active"><a href="profile.php" class="nav-link" href="#!">Profile</a></li>
-                        <li class="nav-item active"><a href="rekapmedis.php" class="nav-link" href="#!">Rekap Medis</a></li>
                         <li class="nav-item active"><a href="logout.php" class="nav-link" href="#!">Logout</a></li>
                     </ul>
                 </div>
@@ -92,11 +92,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="form-group">
                         <label>Kategori Layanan Medis</label>
-                        <select name="kategori_layanan" class="form-control">
+                        <select name="kategori_layanan" class="form-control" id="kategori_layanan">
                             <option value="" disabled selected>Pilih kategori</option>
                             <option value="Poli Umum">Poli Umum</option>
                             <option value="Poli Gigi">Poli Gigi</option>
                             <option value="Poli Orthopedi">Poli Orthopedi</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="layananDiv" style="display: none;">
+                        <label for="layanan">Layanan</label>
+                        <select id="layanan" name="layanan" class="form-control">
+                            <option value="" disabled selected>Pilih layanan</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -144,5 +150,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="js/scripts.js"></script>
+<script>
+    var kategoriLayananSelect = document.getElementById('kategori_layanan');
+    var layananDiv = document.getElementById('layananDiv');
+    var layananSelect = document.getElementById('layanan');
+
+    // Tampilkan pilihan layanan yang sesuai berdasarkan kategori layanan yang dipilih
+    kategoriLayananSelect.addEventListener('change', function() {
+        var kategoriLayanan = this.value;
+        if (kategoriLayanan === 'Poli Umum') {
+            layananDiv.style.display = 'block';
+            layananSelect.innerHTML = '<option value="" disabled selected>Pilih layanan</option><option value="Pemeriksaan Umum">Pemeriksaan Umum</option><option value="Pemeriksaan Darah">Pemeriksaan Darah</option>';
+        } else if (kategoriLayanan === 'Poli Gigi') {
+            layananDiv.style.display = 'block';
+            layananSelect.innerHTML = '<option value="" disabled selected>Pilih layanan</option><option value="Pemeriksaan Gigi">Pemeriksaan Gigi</option><option value="Pembersihan Gigi">Pembersihan Gigi</option>';
+        } else if (kategoriLayanan === 'Poli Orthopedi') {
+            layananDiv.style.display = 'block';
+            layananSelect.innerHTML = '<option value="" disabled selected>Pilih layanan</option><option value="Pemeriksaan Tulang">Pemeriksaan Tulang</option><option value="Terapi Fisik">Terapi Fisik</option>';
+        } else {
+            layananDiv.style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>

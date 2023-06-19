@@ -12,7 +12,6 @@ if (isset($_GET['search'])) {
             ['nik' => ['$regex' => $searchQuery, '$options' => 'i']],
             ['nama_pasien' => ['$regex' => $searchQuery, '$options' => 'i']],
             ['kategori_layanan' => ['$regex' => $searchQuery, '$options' => 'i']],
-            ['layanan' => ['$regex' => $searchQuery, '$options' => 'i']],
             ['tanggal' => ['$regex' => $searchQuery, '$options' => 'i']],
             ['jadwal' => ['$regex' => $searchQuery, '$options' => 'i']],
             ['riwayat_medis' => ['$regex' => $searchQuery, '$options' => 'i']],
@@ -47,10 +46,11 @@ if (isset($_GET['search'])) {
     <div class="border-end bg-white" id="sidebar-wrapper">
         <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
         <div class="list-group list-group-flush">
-            <a href="index.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
-            <a href="janjimedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Medis</a>
-            <a href="listobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>                    
-            <a href="pembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Pembelian Obat</a>
+        <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard Admin</a>
+                <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
+                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List User</a>
+                <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
+                <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
         </div>
     </div>
     <!-- Page content wrapper-->
@@ -83,29 +83,31 @@ if (isset($_GET['search'])) {
                         <th>NIK</th>
                         <th>Nama Pasien</th>
                         <th>Kategori Layanan Medis</th>
-                        <th>Layanan</th>
                         <th>Tanggal</th>
                         <th>Jadwal</th>
                         <th>Riwayat Medis</th>
                         <th>No Telepon</th>
                         <th>Memiliki Asuransi</th>
                         <th>Keterangan Tambahan</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($janji_medis as $janji) : ?>
                         <tr>
-                            <td><?php echo isset($janji['nik']) ? $janji['nik'] : ''; ?></td>
-                            <td><?php echo isset($janji['nama_pasien']) ? $janji['nama_pasien'] : ''; ?></td>
-                            <td><?php echo isset($janji['kategori_layanan']) ? $janji['kategori_layanan'] : ''; ?></td>
-                            <td><?php echo isset($janji['layanan']) ? $janji['layanan'] : ''; ?></td>
-                            <td><?php echo isset($janji['tanggal']) ? $janji['tanggal'] : ''; ?></td>
-                            <td><?php echo isset($janji['jadwal']) ? $janji['jadwal'] : ''; ?></td>
-                            <td><?php echo isset($janji['riwayat_medis']) ? $janji['riwayat_medis'] : ''; ?></td>
-                            <td><?php echo isset($janji['no_telepon']) ? $janji['no_telepon'] : ''; ?></td>
-                            <td><?php echo isset($janji['memiliki_asuransi']) ? $janji['memiliki_asuransi'] : ''; ?></td>
-                            <td><?php echo isset($janji['keterangan_tambahan']) ? $janji['keterangan_tambahan'] : ''; ?></td>
-                            
+                            <td><?php echo $janji['nik']; ?></td>
+                            <td><?php echo $janji['nama_pasien']; ?></td>
+                            <td><?php echo $janji['kategori_layanan']; ?></td>
+                            <td><?php echo $janji['tanggal']; ?></td>
+                            <td><?php echo $janji['jadwal']; ?></td>
+                            <td><?php echo $janji['riwayat_medis']; ?></td>
+                            <td><?php echo $janji['no_telepon']; ?></td>
+                            <td><?php echo $janji['memiliki_asuransi']; ?></td>
+                            <td><?php echo $janji['keterangan_tambahan']; ?></td>
+                            <td>
+                                <a href="editrekapmedis.php?id=<?php echo $janji['_id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="deleterekapmedis.php?id=<?php echo $janji['_id']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
