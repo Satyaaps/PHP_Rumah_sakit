@@ -52,6 +52,7 @@ $tampil = $collection->find($searchQuery, ['skip' => $offset, 'limit' => $itemsP
                 <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3">List User</a>
                 <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3">List Medis</a>
                 <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3">List Pembelian Obat</a>
+                <a href="report.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Report</a>
             </div>
         </div>
         <!-- Page content wrapper-->
@@ -108,6 +109,7 @@ $tampil = $collection->find($searchQuery, ['skip' => $offset, 'limit' => $itemsP
                                         <div class="btn-group">
                                             <a href="editdataobat.php?_id=<?php echo $data['_id']; ?>" class="btn btn-sm btn-warning">Edit</a>
                                             <a href="hapusdataobat.php?_id=<?php echo $data['_id']; ?>" class="btn btn-sm btn-danger">Hapus</a>
+                                            <a href="detaildataobat.php?_id=<?php echo $data['_id']; ?>" class="btn btn-sm btn-danger">Detail</a>
                                         </div>
                                     </td>
                                 </tr>
