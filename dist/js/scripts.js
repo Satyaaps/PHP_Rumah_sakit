@@ -68,3 +68,41 @@ $('.form').find('input, textarea').on('keyup blur focus', function (e) {
     $(target).fadeIn(600);
     
   });
+
+  var skip = 0; // Variabel untuk melacak jumlah data yang sudah ditampilkan
+
+function loadMoreData() {
+    // Kirim permintaan AJAX ke load_more_data.php dengan parameter skip
+    $.ajax({
+        url: 'load_more_data.php?skip=' + skip,
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            // Tambahkan data yang diterima ke dalam tabel
+            $('table').append(response.output);
+
+            // Perbarui variabel skip
+            skip += <?php echo $limit; ?>;
+
+            // Periksa apakah masih ada data yang tersisa
+            if (response.hasMore) {
+                // Tampilkan tombol "Load More"
+                $('#loadMoreBtn').show();
+            } else {
+                // Sembunyikan tombol "Load More" jika tidak ada data yang tersisa
+                $('#loadMoreBtn').hide();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(error); // Tampilkan pesan kesalahan jika terjadi masalah
+        }
+    });
+}
+
+$(document).ready(function() {
+    loadMoreData(); // Panggil fungsi untuk memuat data awal
+
+    $('#loadMoreBtn').click(function() {
+        loadMoreData(); // Panggil fungsi saat tombol "Load More" diklik
+    });
+});
