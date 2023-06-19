@@ -4,13 +4,13 @@ session_start();
 include "dbconnect.php";
 $collection = $database->selectCollection("obat");
 
-if (isset($_GET['ido'])) {
-    $objectId = new MongoDB\BSON\ObjectID($_GET['ido']);
+if (isset($_GET['_id'])) {
+    $objectId = new MongoDB\BSON\ObjectID($_GET['_id']);
     $data = $collection->findOne(['_id' => $objectId]);
 }
 
 if (isset($_POST['submit'])) {
-    $objectId = new MongoDB\BSON\ObjectID($_GET['ido']);
+    $objectId = new MongoDB\BSON\ObjectID($_GET['_id']);
     $collection->updateOne(
         ['_id' => $objectId],
         ['$set' => [
@@ -77,10 +77,6 @@ $tampil = $collection->find();
         <!-- Page content-->
         <div class="container-fluid">
             <form action="" method="POST" class="form-item">
-                <div class="form-group">
-                    <label for="ido">ID OBAT</label>
-                    <input type="number" name="ido" value="<?php echo $data['ido']; ?>" class="form-control col-md-9" placeholder="Masukkan id obat" disabled>
-                </div>
 
                 <div class="form-group">
                     <label for="nama_obat">NAMA OBAT</label>
