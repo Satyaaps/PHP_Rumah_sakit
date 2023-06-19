@@ -60,6 +60,7 @@ if (isset($_POST['submit'])) {
             <a href="adminlistjanjimedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Medis</a>
             <a href="listobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>                    
             <a href="pembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Pembelian Obat</a>
+            <a href="report.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Report</a>
         </div>
     </div>
     <!-- Page content wrapper-->
