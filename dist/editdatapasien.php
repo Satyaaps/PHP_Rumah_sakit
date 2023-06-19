@@ -4,13 +4,17 @@ session_start();
 include "dbconnect.php";
 $collection = $database->selectCollection("user");
 
-if (isset($_GET['idu'])) {
-    $objectId = new MongoDB\BSON\ObjectID($_GET['idu']);
+if (isset($_GET['_id'])) {
+    $objectId = new MongoDB\BSON\ObjectID($_GET['_id']);
     $data = $collection->findOne(['_id' => $objectId]);
+    if (!$data) {
+        echo "Data tidak ditemukan.";
+        exit();
+    }
 }
 
 if (isset($_POST['submit'])) {
-    $objectId = new MongoDB\BSON\ObjectID($_GET['idu']);
+    $objectId = new MongoDB\BSON\ObjectID($_GET['_id']);
     $collection->updateOne(
         ['_id' => $objectId],
         ['$set' => [
@@ -18,13 +22,13 @@ if (isset($_POST['submit'])) {
             'password' => $_POST['password'],
             'nama_pasien' => $_POST['nama_pasien'],
             'no_telp' => $_POST['no_telp'],
-            'umur' => $_POST['umur'],
+            'tanggal_lahir' => $_POST['tanggal_lahir'],
             'jenis_kelamin' => $_POST['jenis_kelamin'],
             'penyakit_bawaan' => $_POST['penyakit_bawaan'],
             'status' => $_POST['status'],
         ]]
     );
-    $_SESSION['success'] = "Data Obat berhasil diubah";
+    $_SESSION['success'] = "Data Pasien berhasil diubah";
     header("Location: adminlistdatapasien.php");
     exit();
 }
@@ -58,6 +62,7 @@ $tampil = $collection->find();
                 <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List User</a>
                 <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Medis</a>
                 <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Pembelian Obat</a>
+                <a href="report.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Report</a>
         </div>
     </div>
     <!-- Page content wrapper-->
@@ -70,6 +75,7 @@ $tampil = $collection->find();
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                        <li class="nav-item active"><a href="report.php" class="nav-link" href="#!">Report</a></li>
                         <li class="nav-item active"><a href="profile.php" class="nav-link" href="#!">Profile</a></li>
                         <li class="nav-item active"><a href="rekapmedis.php" class="nav-link" href="#!">Rekap Medis</a></li>
                         <li class="nav-item active"><a href="logout.php" class="nav-link" href="#!">Logout</a></li>
@@ -81,33 +87,28 @@ $tampil = $collection->find();
         <div class="container-fluid">
             <form action="" method="POST" class="form-item">
                 <div class="form-group">
-                    <label for="idu">ID USER</label>
-                    <input type="number" name="idu" value="<?php echo $data['idu']; ?>" class="form-control col-md-9" placeholder="Masukkan id obat" disabled>
-                </div>
-
-                <div class="form-group">
-                    <label for="username">USERNAME</label>
+                    <label for="username">Username</label>
                     <input type="text" name="username" value="<?php echo $data['username']; ?>" class="form-control col-md-9" placeholder="Masukan Username">
                 </div>
 
                 <div class="form-group">
-                    <label for="password">PASSWORD</label>
+                    <label for="password">Password</label>
                     <input type="text" name="password" value="<?php echo $data['password']; ?>" class="form-control col-md-9" placeholder="Masukkan Password">
                 </div>
 
                 <div class="form-group">
-                    <label for="nama_pasien">NAMA USER</label>
+                    <label for="nama_pasien">Nama User</label>
                     <input type="text" name="nama_pasien" value="<?php echo $data['nama_pasien']; ?>" class="form-control col-md-9" placeholder="Masukkan Nama Pasien">
                 </div>
 
                 <div class="form-group">
-                    <label for="no_telp">NO TELP</label>
+                    <label for="no_telp">No.Telp</label>
                     <input type="text" name="no_telp" value="<?php echo $data['no_telp']; ?>" class="form-control col-md-9" placeholder="Masukkan No Telp">
                 </div>
 
                 <div class="form-group">
-                    <label for="umur">UMUR</label>
-                    <input type="text" name="umur" value="<?php echo $data['umur']; ?>" class="form-control col-md-9" placeholder="Masukkan Umur">
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" value="<?php echo $data['tanggal_lahir']; ?>" class="form-control col-md-9" placeholder="Masukkan Tanggal Lahir">
                 </div>
 
                 <div class="form-group">
@@ -117,12 +118,16 @@ $tampil = $collection->find();
                         <option value="Perempuan" <?php if ($data && $data['jenis_kelamin'] == 'Perempuan') echo 'selected'; ?>>Perempuan</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="status">USER STATUS</label>
+                    <label for="penyakit_bawaan">Penyakit Bawaan</label>
+                    <input type="text" name="penyakit_bawaan" value="<?php echo $data['penyakit_bawaan']; ?>" class="form-control col-md-9" placeholder="Tidak Ada/ Ada, Hemofilia contoh">
+                </div>
+                <div class="form-group">
+                    <label for="status">User Status</label>
                     <select name="status" class="form-control col-md-9">
-                        <option value="admin" <?php if ($data && $data['status'] == 'admin') echo 'selected'; ?>>admin</option>
-                        <option value="member" <?php if ($data && $data['status'] == 'member') echo 'selected'; ?>>member</option>
+                    <option value="admin" <?php if ($data && $data['status'] == 'admin') echo 'selected'; ?>>admin</option>
+                    <option value="member" <?php if ($data && $data['status'] == 'member') echo 'selected'; ?>>member</option>
+                    <option value="dokter" <?php if ($data && $data['status'] == 'dokter') echo 'selected'; ?>>dokter</option>
                     </select>
                 </div>
                 <br>
