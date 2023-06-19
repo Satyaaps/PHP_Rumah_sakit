@@ -26,23 +26,24 @@
             </div>
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
-                <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                    <div class="container-fluid">
-                        <button class="btn btn-primary" id="sidebarToggle">Menu</button>
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle">Menu</button>
 
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                                 <li class="nav-item active"><a href="profile.php" class="nav-link" href="#!">Profile</a></li>
-                                <li class="nav-item active"><a href="rekapmedis.php" class="nav-link" href="#!">Rekap Medis</a></li>
                                 <li class="nav-item active"><a href="logout.php" class="nav-link" href="#!">Logout</a></li>
                             </ul>
                         </div>
                     </div>  
                 </nav>
                 <!-- Page content-->
-                <div class="container-fluid">
+                <div class="custom-container">
                     <h1 class="mt-4">HaiMedic!</h1>
                     <p>HaiMedic adalah sebuah layanan rumah sakit berbasis website yang dirancang untuk memudahkan pasien dalam mengakses perawatan kesehatan. Dengan HaiMedic, pasien dapat dengan mudah membuat janji temu dengan dokter, mengatur janji medis untuk pemeriksaan kesehatan, serta melakukan pembelian obat secara online.</p>
                     <p>Melalui platform HaiMedic, pasien dapat mencari dokter yang sesuai dengan spesialisasi yang mereka butuhkan, melihat jadwal ketersediaan dokter, dan memesan janji temu secara langsung. Ini menghemat waktu dan usaha pasien dalam mencari jadwal yang cocok dan menghindari antrian yang panjang.</p>
