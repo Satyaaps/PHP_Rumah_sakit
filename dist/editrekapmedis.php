@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
             $nama_pasien = $_POST['nama_pasien'];
             $kategori_layanan = $_POST['kategori_layanan'];
             $tanggal = date('m/d/y', strtotime($_POST['tanggal']));
-            $jadwal = $_POST['jadwal'];
+            $layanan = $_POST['layanan'];
             $riwayat_medis = $_POST['riwayat_medis'];
             $no_telepon = $_POST['no_telepon'];
             $memiliki_asuransi = $_POST['asuransi'];
@@ -33,7 +33,7 @@ if (isset($_GET['id'])) {
                     'nama_pasien' => $nama_pasien,
                     'kategori_layanan' => $kategori_layanan,
                     'tanggal' => $tanggal,
-                    'jadwal' => $jadwal,
+                    'layanan' => $layanan,
                     'riwayat_medis' => $riwayat_medis,
                     'no_telepon' => $no_telepon,
                     'memiliki_asuransi' => $memiliki_asuransi,
@@ -72,107 +72,109 @@ if (isset($_GET['id'])) {
 </head>
 <body>
 <div class="d-flex" id="wrapper">
-    <!-- Sidebar-->
-    <div class="border-end bg-white" id="sidebar-wrapper">
-        <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
-        <div class="list-group list-group-flush">
-            <a href="index.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Dashboard</a>
-            <a href="janjitemu.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Temu</a>
-            <a href="janjimedis.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Janji Medis</a>
-            <a href="listobat.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">List Obat</a>
-            <a href="pembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Pembelian Obat</a>
-        </div>
-    </div>
-    <!-- Page content wrapper-->
-    <div id="page-content-wrapper">
-        <!-- Top navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-            <div class="container-fluid">
-                <button class="btn btn-primary" id="sidebarToggle">Menu</button>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a href="profile.php" class="nav-link" href="#!">Profile</a></li>
-                        <li class="nav-item active"><a href="rekapmedis.php" class="nav-link" href="#!">Rekap Medis</a></li>
-                        <li class="nav-item active"><a href="logout.php" class="nav-link" href="#!">Logout</a></li>
-                    </ul>
-                </div>
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">HaiMedic</div>
+            <div class="list-group list-group-flush">
+                <a href="admindashboard.php" class="list-group-item list-group-item-action list-group-item-light p-3">Dashboard Admin</a>
+                <a href="adminlistobat.php" class="list-group-item list-group-item-action list-group-item-light p-3">List Obat</a>
+                <a href="adminlistdatapasien.php" class="list-group-item list-group-item-action list-group-item-light p-3">List User</a>
+                <a href="adminlistdatamedis.php" class="list-group-item list-group-item-action list-group-item-light p-3">List Medis</a>
+                <a href="adminpembelian.php" class="list-group-item list-group-item-action list-group-item-light p-3">List Pembelian Obat</a>
+                <a href="report.php" class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Report</a>
             </div>
-        </nav>
-        <!-- Page content-->
-        <div class="container-fluid">
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="btn btn-primary" id="sidebarToggle">Menu</button>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item active"><a href="profile.php" class="nav-link">Profile</a></li>
+                            <li class="nav-item active"><a href="logout.php" class="nav-link">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Page content-->
+            <div class="container-fluid">
                 <h3>Edit Janji Medis</h3>
                 <form method="POST" action="">
-                <div class="form-group">
-                     <label for="nik">NIK</label>
-                     <input type="text" class="form-control" id="nik" name="nik" value="<?php echo $janji['nik']; ?>" readonly required>
+                    <div class="form-group">
+                        <label for="nik">NIK</label>
+                        <input type="text" class="form-control" id="nik" name="nik" value="<?php echo $janji['nik']; ?>" required>
                     </div>
-
                     <div class="form-group">
                         <label for="nama_pasien">Nama Pasien</label>
                         <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" value="<?php echo $janji['nama_pasien']; ?>" required>
                     </div>
-
                     <div class="form-group">
-                         <label for="kategori_layanan">Kategori Layanan Medis</label>
+                        <label for="kategori_layanan">Kategori Layanan Medis</label>
                         <select class="form-control" id="kategori_layanan" name="kategori_layanan" required>
-                              <option value="Poli Umum" <?php if ($janji['kategori_layanan'] === 'Poli Umum') echo 'selected'; ?>>Poli Umum</option>
-                             <option value="Poli Gigi" <?php if ($janji['kategori_layanan'] === 'Poli Gigi') echo 'selected'; ?>>Poli Gigi</option>
-                             <option value="Poli Orthopedi" <?php if ($janji['kategori_layanan'] === 'Poli Orthopedi') echo 'selected'; ?>>Poli Orthopedi</option>
-                    </select>
+                            <option value="Poli Umum" <?php if ($janji['kategori_layanan'] == "Poli Umum") echo "selected"; ?>>Poli Umum</option>
+                            <option value="Poli Gigi" <?php if ($janji['kategori_layanan'] == "Poli Gigi") echo "selected"; ?>>Poli Gigi</option>
+                            <option value="Poli Orthopedi" <?php if ($janji['kategori_layanan'] == "Poli Orthopedi") echo "selected"; ?>>Poli Orthopedi</option>
+                        </select>
                     </div>
-
-
+                    <div class="form-group">
+                        <label for="layanan">Layanan</label>
+                        <select class="form-control" id="layanan" name="layanan" required>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="tanggal">Tanggal</label>
                         <input type="text" class="form-control" id="tanggal" name="tanggal" value="<?php echo $janji['tanggal']; ?>" required>
                     </div>
-
-                    <div class="form-group">
-                        <label for="jadwal">Jadwal</label>
-                        <select class="form-control" id="jadwal" name="jadwal" required>
-                            <option value="08.00 - 10.00" <?php if ($janji['jadwal'] === '08.00 - 10.00') echo 'selected'; ?>>08.00 - 10.00</option>
-                            <option value="10.00 - 12.00" <?php if ($janji['jadwal'] === '10.00 - 12.00') echo 'selected'; ?>>10.00 - 12.00</option>
-                            <option value="13.00 - 15.00" <?php if ($janji['jadwal'] === '13.00 - 15.00') echo 'selected'; ?>>13.00 - 15.00</option>
-                            <option value="15.00 - 17.00" <?php if ($janji['jadwal'] === '15.00 - 17.00') echo 'selected'; ?>>15.00 - 17.00</option>
-                        </select>
-                    </div>
-
-
                     <div class="form-group">
                         <label for="riwayat_medis">Riwayat Medis</label>
-                        <input type="text" class="form-control" id="riwayat_medis" name="riwayat_medis" value="<?php echo $janji['riwayat_medis']; ?>" required>
+                        <textarea class="form-control" id="riwayat_medis" name="riwayat_medis" rows="3"><?php echo $janji['riwayat_medis']; ?></textarea>
                     </div>
-
                     <div class="form-group">
-                        <label for="no_telepon">No Telepon</label>
+                        <label for="no_telepon">Nomor Telepon</label>
                         <input type="text" class="form-control" id="no_telepon" name="no_telepon" value="<?php echo $janji['no_telepon']; ?>" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="asuransi">Memiliki Asuransi</label>
-                        <select class="form-control" id="asuransi" name="asuransi" required>
-                              <option value="Ya" <?php if($janji['memiliki_asuransi'] === 'Ya') echo 'selected'; ?>>Ya</option>
-                              <option value="Tidak" <?php if($janji['memiliki_asuransi'] === 'Tidak') echo 'selected'; ?>>Tidak</option>
-                        </select>
-                        </div>
-
-
+                    <label for="asuransi">Memiliki Asuransi</label>
+    <select class="form-control" id="asuransi" name="asuransi" required>
+        <option value="Ya">Ya</option>
+        <option value="Tidak">Tidak</option>
+    </select>
+                    </div>
                     <div class="form-group">
                         <label for="keterangan_tambahan">Keterangan Tambahan</label>
-                        <input type="text" class="form-control" id="keterangan_tambahan" name="keterangan_tambahan" value="<?php echo $janji['keterangan_tambahan']; ?>">
-                    </div>
-
-                    <button type="submit" name="submit" class="btn btn-primary">Simpan</button>
-                    <a href="rekapmedis.php" class="btn btn-secondary">Batal</a>
+                        <textarea class="form-control" id="keterangan_tambahan" name="keterangan_tambahan" rows="3"><?php echo $janji['keterangan_tambahan']; ?></textarea>
+                    </div><br>
+                    <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
                 </form>
             </div>
+        </div>
     </div>
-</div>
-
-<!-- Bootstrap core JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="js/scripts.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom scripts-->
+    <script>
+        // Update options based on selected category
+        $(document).ready(function () {
+            $('#kategori_layanan').on('change', function () {
+                var category = $(this).val();
+                var layananDropdown = $('#layanan');
+                layananDropdown.empty();
+                if (category === "Poli Umum") {
+                    layananDropdown.append('<option value="Pemeriksaan Umum" <?php if ($janji["layanan"] == "Pemeriksaan Umum") echo "selected"; ?>>Pemeriksaan Umum</option>');
+                    layananDropdown.append('<option value="Pemeriksaan Darah" <?php if ($janji["layanan"] == "Pemeriksaan Darah") echo "selected"; ?>>Pemeriksaan Darah</option>');
+                } else if (category === "Poli Gigi") {
+                    layananDropdown.append('<option value="Pemeriksaan Gigi" <?php if ($janji["layanan"] == "Pemeriksaan Gigi") echo "selected"; ?>>Pemeriksaan Gigi</option>');
+                    layananDropdown.append('<option value="Pembersihan Gigi" <?php if ($janji["layanan"] == "Pembersihan Gigi") echo "selected"; ?>>Pembersihan Gigi</option>');
+                } else if (category === "Poli Orthopedi") {
+                    layananDropdown.append('<option value="Pemeriksaan Tulang" <?php if ($janji["layanan"] == "Pemeriksaan Tulang") echo "selected"; ?>>Pemeriksaan Tulang</option>');
+                    layananDropdown.append('<option value="Terapi Fisik" <?php if ($janji["layanan"] == "Terapi Fisik") echo "selected"; ?>>Terapi Fisik</option>');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
