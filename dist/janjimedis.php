@@ -70,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                         <li class="nav-item active"><a href="profile.php" class="nav-link" href="#!">Profile</a></li>
-                        <li class="nav-item active"><a href="rekapmedis.php" class="nav-link" href="#!">Rekap Medis</a></li>
                         <li class="nav-item active"><a href="logout.php" class="nav-link" href="#!">Logout</a></li>
                     </ul>
                 </div>
@@ -129,9 +128,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="form-group">
-                        <label>Keterangan Tambahan</label>
+                        <label>Keluhan</label>
                         <textarea name="keterangan_tambahan" class="form-control" rows="3"></textarea>
                     </div>
+                    <br>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
