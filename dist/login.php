@@ -96,11 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($status === 'member') {
             // Redirect to dashboard.php for members
-            header("Location: profile.php?idu=" . $user['_id']);
+            header("Location: profile.php?_id=" . $user['_id']);
             exit();
-        } elseif ($status === 'admin') {
+        }  elseif ($status === 'admin' || $status === 'dokter') {
             // Redirect to admindashboard.php for admins
-            header("Location: admindashboard.php?idu=" . $user['_id']);
+            header("Location: admindashboard.php?_id=" . $user['_id']);
             exit();
         }
     } else {
@@ -108,5 +108,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-
